@@ -1,0 +1,14 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+
+WORKDIR /app
+
+VOLUME /app/results
+
+COPY . .
+
+WORKDIR /app/tests/FriendsApi.SpecFlowTests/
+
+ENV ASPNETCORE_ENVIRONMENT=compose
+
+CMD  dotnet test ./FriendsApi.SpecFlowTests.csproj --configuration Release --logger "trx;LogFileName=/app/results/testresults-specflowtests.trx" /p:CollectCoverage=true /p:ExcludeByAttribute="" /p:Include="[*]*"  /p:CoverletOutputFormat=Cobertura /p:CoverletOutput=/app/results/results-specflowtests.xml
+# /p:Include="[FriendsApi.SpecFlowTests.Proxies*]*"

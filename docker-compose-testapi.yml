@@ -1,0 +1,78 @@
+version: "3"
+services:
+    unit:
+        image: friendapi-unit-tests
+        container_name: friendapi-unit-tests
+        build:
+            context: ./src/
+            dockerfile: ./Dockerfile.UnitTests
+        volumes:
+            - ./results:/app/results
+    integration:
+        image: friendapi-integration-tests
+        container_name: friendapi-integration-tests
+        build:
+            context: ./src/
+            dockerfile: ./Dockerfile.IntegrationTests
+        volumes:
+            - ./results:/app/results    
+        depends_on:
+            - db  
+        networks:
+            - dbnet
+        environment:
+            - HOST_DB=db
+    e2e:
+        image: friendapi-e2e-tests
+        container_name: friendapi-e2e-tests
+        build:
+            context: ./src/
+            dockerfile: ./Dockerfile.E2eTests
+        volumes:
+            - ./results:/app/results    
+        depends_on:
+            - db  
+            - api
+        networks:
+            - apinet
+    coverage:
+        image: friendapi-reportgenerator
+        container_name: friendapi-reportgenerator
+        build:
+            context: ./src/
+            dockerfile: ./Dockerfile.ReportGenerator
+        depends_on:
+            - unit
+            - integration 
+        volumes:
+            - ./results:/app/results
+    api:
+        image: friendapi
+        container_name: friendapi
+        build:
+            context: ./src/
+            dockerfile: ./Dockerfile
+        networks:
+            - dbnet
+            - apinet
+        depends_on:
+            - db  
+        environment:
+            - ASPNETCORE_ENVIRONMENT=compose
+        ports:    
+            - "5001:80"        
+    db:
+        image: custom-mssql
+        container_name: custom-mssql
+        build:
+            context: ./database
+            dockerfile: Dockerfile
+        networks:
+            - dbnet
+        ports:
+            - "1433:1433"        
+networks:
+    dbnet:
+        name: dbnet
+    apinet:
+        name: apinet    

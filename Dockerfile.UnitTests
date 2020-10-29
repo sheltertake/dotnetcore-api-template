@@ -1,0 +1,13 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+
+WORKDIR /app
+
+VOLUME /app/results
+
+COPY . .
+
+WORKDIR /app/tests/FriendsApi.UnitTests/
+
+ENV ASPNETCORE_ENVIRONMENT=compose
+
+CMD  dotnet test ./FriendsApi.UnitTests.csproj --configuration Release --logger "trx;LogFileName=/app/results/testresults-unittests.trx" /p:CollectCoverage=true  /p:CoverletOutputFormat=Cobertura /p:CoverletOutput=/app/results/results-unittests.xml /p:Include="[FriendsApi*]*"

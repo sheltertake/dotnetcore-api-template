@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FriendsApi.Host</name>
+    </assembly>
+    <members>
+        <member name="M:FriendsApi.Host.Controllers.FriendsController.Get">
+            <summary>
+            Get Friends
+            </summary>
+            <remarks>Get Friends</remarks>
+            <response code="200">Return the list of Friends</response>
+        </member>
+        <member name="M:FriendsApi.Host.Controllers.FriendsController.Get(System.Int32)">
+            <summary>
+            Get Friend by Id
+            </summary>
+            <remarks>Get Friend by Id</remarks>
+            <response code="200">Return the friend</response>
+            <response code="404">Friend not found</response>
+        </member>
+        <member name="M:FriendsApi.Host.Controllers.FriendsController.Post(FriendsApi.Model.Types.Friend)">
+            <summary>
+            Create Friend
+            </summary>
+            <remarks>Create an Friend</remarks>
+            <response code="201">Friend created</response>
+        </member>
+        <member name="M:FriendsApi.Host.Controllers.FriendsController.Put(System.Int32,FriendsApi.Model.Types.Friend)">
+            <summary>
+            Update an Friend
+            </summary>
+            <remarks>Update an Friend</remarks>
+            <response code="204">Friend updated</response>
+            <response code="404">Friend not found</response>
+        </member>
+        <member name="M:FriendsApi.Host.Controllers.FriendsController.Delete(System.Int32)">
+            <summary>
+            Delete Friend
+            </summary>
+            <remarks>Delete an Friend</remarks>
+            <response code="204">Friend deleted</response>
+            <response code="404">Friend not found</response>
+        </member>
+        <member name="M:FriendsApi.Host.Controllers.HealthCheckController.Get">
+            <summary>
+            Healthcheck
+            </summary>
+            <remarks>Healthcheck</remarks>
+            <response code="200">Return status api</response>
+        </member>
+    </members>
+</doc>
