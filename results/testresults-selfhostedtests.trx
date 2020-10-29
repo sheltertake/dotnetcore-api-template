@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="a0c743cc-414f-4404-a190-ce1ab691fa3f" name="@82264585fbdf 2020-10-29 17:34:46" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2020-10-29T17:34:46.9942248+00:00" queuing="2020-10-29T17:34:46.9942251+00:00" start="2020-10-29T17:34:42.7524653+00:00" finish="2020-10-29T17:34:47.0113364+00:00" />
+  <TestSettings name="default" id="018be276-c11d-4de4-b49d-ceb3c8d696ee">
+    <Deployment runDeploymentRoot="_82264585fbdf_2020-10-29_17_34_46" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="fc227139-a794-472f-83ec-18d5febdbcfb" testId="5f7dbdac-4de2-86ed-b8bd-04bb25361706" testName="HealthCheckShouldBeOkTest" computerName="82264585fbdf" duration="00:00:00.0347450" startTime="2020-10-29T17:34:46.0000000+00:00" endTime="2020-10-29T17:34:46.0000000+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fc227139-a794-472f-83ec-18d5febdbcfb">
+      <Output>
+        <StdOut>Selfhosted envcompose
+{"@t":"2020-10-29T17:34:46.8495787Z","@mt":"Selfhosted envcompose","MachineName":"82264585fbdf","EnvironmentUserName":null,"ProcessId":91,"ThreadId":12,"MemoryUsage":5875032,"ServiceVersion":"15.0.0","ServiceName":"testhost"}
+{"@t":"2020-10-29T17:34:46.8578949Z","@mt":"Env:compose","MachineName":"82264585fbdf","EnvironmentUserName":null,"ProcessId":91,"ThreadId":12,"MemoryUsage":6071472,"ServiceVersion":"15.0.0","ServiceName":"testhost"}
+{"@t":"2020-10-29T17:34:46.8706039Z","@mt":"Application started. Press Ctrl+C to shut down.","SourceContext":"Microsoft.Hosting.Lifetime","MachineName":"82264585fbdf","EnvironmentUserName":null,"ProcessId":91,"ThreadId":12,"MemoryUsage":6968592,"ServiceVersion":"15.0.0","ServiceName":"testhost"}
+{"@t":"2020-10-29T17:34:46.8709493Z","@mt":"Hosting environment: {envName}","envName":"compose","SourceContext":"Microsoft.Hosting.Lifetime","MachineName":"82264585fbdf","EnvironmentUserName":null,"ProcessId":91,"ThreadId":12,"MemoryUsage":6968592,"ServiceVersion":"15.0.0","ServiceName":"testhost"}
+{"@t":"2020-10-29T17:34:46.8712317Z","@mt":"Content root path: {contentRoot}","contentRoot":"/app/tests/FriendsApi.SelfHostedTests/bin/Release/netcoreapp3.1/","SourceContext":"Microsoft.Hosting.Lifetime","MachineName":"82264585fbdf","EnvironmentUserName":null,"ProcessId":91,"ThreadId":12,"MemoryUsage":6976784,"ServiceVersion":"15.0.0","ServiceName":"testhost"}</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="779c56d8-95af-4bf9-8164-91fc4cf6ab57" testId="b7ae471a-af5f-e154-61d5-7e1c4a6dbabc" testName="FriendCrudTest" computerName="82264585fbdf" duration="00:00:02.5188820" startTime="2020-10-29T17:34:44.0000000+00:00" endTime="2020-10-29T17:34:46.0000000+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="779c56d8-95af-4bf9-8164-91fc4cf6ab57">
+      <Output>
+        <StdOut>Selfhosted envcompose
+System.IO.MemoryStream</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FriendCrudTest" storage="/app/tests/friendsapi.selfhostedtests/bin/release/netcoreapp3.1/friendsapi.selfhostedtests.dll" id="b7ae471a-af5f-e154-61d5-7e1c4a6dbabc">
+      <Execution id="779c56d8-95af-4bf9-8164-91fc4cf6ab57" />
+      <TestMethod codeBase="/app/tests/FriendsApi.SelfHostedTests/bin/Release/netcoreapp3.1/FriendsApi.SelfHostedTests.dll" adapterTypeName="executor://nunit3testexecutor/" className="FriendsApi.SelfHostedTests.Tests.FriendsControllerTest" name="FriendCrudTest" />
+    </UnitTest>
+    <UnitTest name="HealthCheckShouldBeOkTest" storage="/app/tests/friendsapi.selfhostedtests/bin/release/netcoreapp3.1/friendsapi.selfhostedtests.dll" id="5f7dbdac-4de2-86ed-b8bd-04bb25361706">
+      <Execution id="fc227139-a794-472f-83ec-18d5febdbcfb" />
+      <TestMethod codeBase="/app/tests/FriendsApi.SelfHostedTests/bin/Release/netcoreapp3.1/FriendsApi.SelfHostedTests.dll" adapterTypeName="executor://nunit3testexecutor/" className="FriendsApi.SelfHostedTests.Tests.HealthCheckControllerTests" name="HealthCheckShouldBeOkTest" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="5f7dbdac-4de2-86ed-b8bd-04bb25361706" executionId="fc227139-a794-472f-83ec-18d5febdbcfb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b7ae471a-af5f-e154-61d5-7e1c4a6dbabc" executionId="779c56d8-95af-4bf9-8164-91fc4cf6ab57" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 3.17.0.0: Test execution started
+Running all tests in /app/tests/FriendsApi.SelfHostedTests/bin/Release/netcoreapp3.1/FriendsApi.SelfHostedTests.dll
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases
+Selfhosted envcompose
+System.IO.MemoryStream
+
+Selfhosted envcompose
+{"@t":"2020-10-29T17:34:46.8495787Z","@mt":"Selfhosted envcompose","MachineName":"82264585fbdf","EnvironmentUserName":null,"ProcessId":91,"ThreadId":12,"MemoryUsage":5875032,"ServiceVersion":"15.0.0","ServiceName":"testhost"}
+{"@t":"2020-10-29T17:34:46.8578949Z","@mt":"Env:compose","MachineName":"82264585fbdf","EnvironmentUserName":null,"ProcessId":91,"ThreadId":12,"MemoryUsage":6071472,"ServiceVersion":"15.0.0","ServiceName":"testhost"}
+{"@t":"2020-10-29T17:34:46.8706039Z","@mt":"Application started. Press Ctrl+C to shut down.","SourceContext":"Microsoft.Hosting.Lifetime","MachineName":"82264585fbdf","EnvironmentUserName":null,"ProcessId":91,"ThreadId":12,"MemoryUsage":6968592,"ServiceVersion":"15.0.0","ServiceName":"testhost"}
+{"@t":"2020-10-29T17:34:46.8709493Z","@mt":"Hosting environment: {envName}","envName":"compose","SourceContext":"Microsoft.Hosting.Lifetime","MachineName":"82264585fbdf","EnvironmentUserName":null,"ProcessId":91,"ThreadId":12,"MemoryUsage":6968592,"ServiceVersion":"15.0.0","ServiceName":"testhost"}
+{"@t":"2020-10-29T17:34:46.8712317Z","@mt":"Content root path: {contentRoot}","contentRoot":"/app/tests/FriendsApi.SelfHostedTests/bin/Release/netcoreapp3.1/","SourceContext":"Microsoft.Hosting.Lifetime","MachineName":"82264585fbdf","EnvironmentUserName":null,"ProcessId":91,"ThreadId":12,"MemoryUsage":6976784,"ServiceVersion":"15.0.0","ServiceName":"testhost"}
+
+NUnit Adapter 3.17.0.0: Test execution complete
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

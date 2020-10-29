@@ -1,0 +1,12 @@
+﻿[*.cs]
+
+# S2699: Tests should include assertions
+dotnet_diagnostic.S2699.severity = none
+# S112: 'System.Exception' should not be thrown by user code
+dotnet_diagnostic.S112.severity = warning
+# S125: Remove this commented out code
+dotnet_diagnostic.S125.severity = warning
+# S1135: Complete the task associated to this 'TODO' comment
+dotnet_diagnostic.S1135.severity = warning
+# S1450: Remove the field '_logger' and declare it as a local variable in the relevant methods
+dotnet_diagnostic.S1450.severity = warning

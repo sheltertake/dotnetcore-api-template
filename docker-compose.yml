@@ -1,0 +1,30 @@
+version: "3"
+services:
+    api:
+        image: friendapi
+        container_name: friendapi
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        networks:
+            - dbnet
+        depends_on:
+            - db  
+        environment:
+            - ASPNETCORE_ENVIRONMENT=compose
+        ports:    
+            - "5001:80"     
+    db:
+        image: custom-mssql
+        container_name: custom-mssql
+        build:
+            context: ./database
+            dockerfile: Dockerfile
+        networks:
+            - dbnet
+        ports:
+            - "1433:1433"        
+networks:
+    dbnet:
+        name: dbnet
+        

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<DocumentationFile>.\FriendsApi.Model.xml</DocumentationFile>
+		<NoWarn>1591</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DocumentationFile>.\FriendsApi.Model.xml</DocumentationFile>
+		<NoWarn>1591</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="FriendsApi.Model.xml" />
+	</ItemGroup>
+
+</Project>
