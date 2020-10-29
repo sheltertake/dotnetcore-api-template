@@ -4,16 +4,16 @@ services:
         image: friendapi-unit-tests
         container_name: friendapi-unit-tests
         build:
-            context: ./src/
-            dockerfile: ./Dockerfile.UnitTests
+            context: .
+            dockerfile: Dockerfile.UnitTests
         volumes:
             - ./results:/app/results
     integration:
         image: friendapi-integration-tests
         container_name: friendapi-integration-tests
         build:
-            context: ./src/
-            dockerfile: ./Dockerfile.IntegrationTests
+            context: .
+            dockerfile: Dockerfile.IntegrationTests
         volumes:
             - ./results:/app/results    
         depends_on:
@@ -26,8 +26,8 @@ services:
         image: friendapi-e2e-tests
         container_name: friendapi-e2e-tests
         build:
-            context: ./src/
-            dockerfile: ./Dockerfile.E2eTests
+            context: .
+            dockerfile: Dockerfile.E2eTests
         volumes:
             - ./results:/app/results    
         depends_on:
@@ -39,8 +39,8 @@ services:
         image: friendapi-reportgenerator
         container_name: friendapi-reportgenerator
         build:
-            context: ./src/
-            dockerfile: ./Dockerfile.ReportGenerator
+            context: .
+            dockerfile: Dockerfile.ReportGenerator
         depends_on:
             - unit
             - integration 
@@ -50,8 +50,8 @@ services:
         image: friendapi
         container_name: friendapi
         build:
-            context: ./src/
-            dockerfile: ./Dockerfile
+            context: .
+            dockerfile: Dockerfile
         networks:
             - dbnet
             - apinet

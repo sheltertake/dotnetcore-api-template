@@ -4,7 +4,7 @@ services:
         image: friendapi
         container_name: friendapi
         build:
-            context: ./src/
+            context: .
             dockerfile: ./Dockerfile
         networks:
             - dbnet

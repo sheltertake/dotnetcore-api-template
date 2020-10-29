@@ -1,0 +1,718 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<coverage line-rate="0.8131" branch-rate="0.5384" version="1.9" timestamp="1603992887" lines-covered="161" lines-valid="198" branches-covered="14" branches-valid="26">
+  <sources>
+    <source>/app/src/</source>
+  </sources>
+  <packages>
+    <package name="FriendsApi.Model" line-rate="1" branch-rate="1" complexity="2">
+      <classes>
+        <class name="FriendsApi.Model.Types.Friend" filename="FriendsApi.Model/Types/Friend.cs" line-rate="1" branch-rate="1" complexity="2">
+          <methods>
+            <method name="get_Id" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="9" hits="18" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Name" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="10" hits="14" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="9" hits="18" branch="False" />
+            <line number="10" hits="14" branch="False" />
+          </lines>
+        </class>
+      </classes>
+    </package>
+    <package name="FriendsApi.Host" line-rate="0.7924" branch-rate="0.5454" complexity="35">
+      <classes>
+        <class name="FriendsApi.Host.Startup" filename="FriendsApi.Host/Startup.cs" line-rate="0.8813" branch-rate="1" complexity="4">
+          <methods>
+            <method name="get_Configuration" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="23" hits="6" branch="False" />
+              </lines>
+            </method>
+            <method name="ConfigureServices" signature="(Microsoft.Extensions.DependencyInjection.IServiceCollection)" line-rate="0.8055" branch-rate="1" complexity="1">
+              <lines>
+                <line number="29" hits="2" branch="False" />
+                <line number="31" hits="2" branch="False" />
+                <line number="32" hits="2" branch="False" />
+                <line number="33" hits="2" branch="False" />
+                <line number="34" hits="2" branch="False" />
+                <line number="35" hits="2" branch="False" />
+                <line number="36" hits="2" branch="False" />
+                <line number="37" hits="2" branch="False" />
+                <line number="38" hits="2" branch="False" />
+                <line number="39" hits="2" branch="False" />
+                <line number="40" hits="2" branch="False" />
+                <line number="41" hits="2" branch="False" />
+                <line number="42" hits="2" branch="False" />
+                <line number="43" hits="2" branch="False" />
+                <line number="44" hits="2" branch="False" />
+                <line number="45" hits="0" branch="False" />
+                <line number="46" hits="2" branch="False" />
+                <line number="47" hits="0" branch="False" />
+                <line number="48" hits="2" branch="False" />
+                <line number="49" hits="0" branch="False" />
+                <line number="50" hits="0" branch="False" />
+                <line number="51" hits="0" branch="False" />
+                <line number="52" hits="0" branch="False" />
+                <line number="53" hits="0" branch="False" />
+                <line number="54" hits="2" branch="False" />
+                <line number="55" hits="2" branch="False" />
+                <line number="56" hits="2" branch="False" />
+                <line number="57" hits="2" branch="False" />
+                <line number="58" hits="2" branch="False" />
+                <line number="59" hits="2" branch="False" />
+                <line number="60" hits="2" branch="False" />
+                <line number="61" hits="4" branch="False" />
+                <line number="62" hits="4" branch="False" />
+                <line number="63" hits="2" branch="False" />
+                <line number="64" hits="2" branch="False" />
+                <line number="65" hits="2" branch="False" />
+              </lines>
+            </method>
+            <method name="Configure" signature="(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Hosting.IHostEnvironment,Microsoft.AspNetCore.Http.IHttpContextAccessor)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="71" hits="2" branch="False" />
+                <line number="77" hits="2" branch="False" />
+                <line number="78" hits="2" branch="False" />
+                <line number="80" hits="2" branch="False" />
+                <line number="83" hits="2" branch="False" />
+                <line number="84" hits="2" branch="False" />
+                <line number="87" hits="4" branch="False" />
+                <line number="90" hits="2" branch="False" />
+                <line number="91" hits="2" branch="False" />
+                <line number="92" hits="2" branch="False" />
+                <line number="93" hits="2" branch="False" />
+                <line number="94" hits="2" branch="False" />
+                <line number="95" hits="2" branch="False" />
+                <line number="96" hits="4" branch="False" />
+                <line number="99" hits="2" branch="False" />
+                <line number="100" hits="2" branch="False" />
+                <line number="101" hits="4" branch="False" />
+                <line number="102" hits="4" branch="False" />
+                <line number="103" hits="2" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(Microsoft.Extensions.Configuration.IConfiguration)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="18" hits="2" branch="False" />
+                <line number="20" hits="2" branch="False" />
+                <line number="21" hits="2" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="23" hits="6" branch="False" />
+            <line number="29" hits="2" branch="False" />
+            <line number="31" hits="2" branch="False" />
+            <line number="32" hits="2" branch="False" />
+            <line number="33" hits="2" branch="False" />
+            <line number="34" hits="2" branch="False" />
+            <line number="35" hits="2" branch="False" />
+            <line number="36" hits="2" branch="False" />
+            <line number="37" hits="2" branch="False" />
+            <line number="38" hits="2" branch="False" />
+            <line number="39" hits="2" branch="False" />
+            <line number="40" hits="2" branch="False" />
+            <line number="41" hits="2" branch="False" />
+            <line number="42" hits="2" branch="False" />
+            <line number="43" hits="2" branch="False" />
+            <line number="44" hits="2" branch="False" />
+            <line number="45" hits="0" branch="False" />
+            <line number="46" hits="2" branch="False" />
+            <line number="47" hits="0" branch="False" />
+            <line number="48" hits="2" branch="False" />
+            <line number="49" hits="0" branch="False" />
+            <line number="50" hits="0" branch="False" />
+            <line number="51" hits="0" branch="False" />
+            <line number="52" hits="0" branch="False" />
+            <line number="53" hits="0" branch="False" />
+            <line number="54" hits="2" branch="False" />
+            <line number="55" hits="2" branch="False" />
+            <line number="56" hits="2" branch="False" />
+            <line number="57" hits="2" branch="False" />
+            <line number="58" hits="2" branch="False" />
+            <line number="59" hits="2" branch="False" />
+            <line number="60" hits="2" branch="False" />
+            <line number="61" hits="4" branch="False" />
+            <line number="62" hits="4" branch="False" />
+            <line number="63" hits="2" branch="False" />
+            <line number="64" hits="2" branch="False" />
+            <line number="65" hits="2" branch="False" />
+            <line number="71" hits="2" branch="False" />
+            <line number="77" hits="2" branch="False" />
+            <line number="78" hits="2" branch="False" />
+            <line number="80" hits="2" branch="False" />
+            <line number="83" hits="2" branch="False" />
+            <line number="84" hits="2" branch="False" />
+            <line number="87" hits="4" branch="False" />
+            <line number="90" hits="2" branch="False" />
+            <line number="91" hits="2" branch="False" />
+            <line number="92" hits="2" branch="False" />
+            <line number="93" hits="2" branch="False" />
+            <line number="94" hits="2" branch="False" />
+            <line number="95" hits="2" branch="False" />
+            <line number="96" hits="4" branch="False" />
+            <line number="99" hits="2" branch="False" />
+            <line number="100" hits="2" branch="False" />
+            <line number="101" hits="4" branch="False" />
+            <line number="102" hits="4" branch="False" />
+            <line number="103" hits="2" branch="False" />
+            <line number="18" hits="2" branch="False" />
+            <line number="20" hits="2" branch="False" />
+            <line number="21" hits="2" branch="False" />
+          </lines>
+        </class>
+        <class name="FriendsApi.Host.Ioc.ServiceRegistrations" filename="FriendsApi.Host/Ioc/ServiceRegistrations.cs" line-rate="1" branch-rate="1" complexity="2">
+          <methods>
+            <method name="AddApplicationServices" signature="(Microsoft.Extensions.DependencyInjection.IServiceCollection)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="12" hits="2" branch="False" />
+                <line number="13" hits="2" branch="False" />
+                <line number="14" hits="2" branch="False" />
+              </lines>
+            </method>
+            <method name="AddDabaseConnection" signature="(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="19" hits="3" branch="False" />
+                <line number="20" hits="2" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="12" hits="2" branch="False" />
+            <line number="13" hits="2" branch="False" />
+            <line number="14" hits="2" branch="False" />
+            <line number="19" hits="3" branch="False" />
+            <line number="20" hits="2" branch="False" />
+          </lines>
+        </class>
+        <class name="FriendsApi.Host.Infra.Logging.CallContextEnricher" filename="FriendsApi.Host/Infra/Logging/CallContextEnricher.cs" line-rate="1" branch-rate="1" complexity="5">
+          <methods>
+            <method name="Enrich" signature="(Serilog.Events.LogEvent,Serilog.Core.ILogEventPropertyFactory)" line-rate="1" branch-rate="1" complexity="4">
+              <lines>
+                <line number="18" hits="53" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="11" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="21" hits="48" branch="False" />
+                <line number="22" hits="48" branch="False" />
+                <line number="23" hits="48" branch="False" />
+                <line number="25" hits="7" branch="False" />
+                <line number="26" hits="7" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="195" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="27" hits="7" branch="False" />
+                <line number="29" hits="12" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(Microsoft.AspNetCore.Http.IHttpContextAccessor)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="11" hits="2" branch="False" />
+                <line number="13" hits="2" branch="False" />
+                <line number="14" hits="2" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="18" hits="53" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="11" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="21" hits="48" branch="False" />
+            <line number="22" hits="48" branch="False" />
+            <line number="23" hits="48" branch="False" />
+            <line number="25" hits="7" branch="False" />
+            <line number="26" hits="7" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="195" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="27" hits="7" branch="False" />
+            <line number="29" hits="12" branch="False" />
+            <line number="11" hits="2" branch="False" />
+            <line number="13" hits="2" branch="False" />
+            <line number="14" hits="2" branch="False" />
+          </lines>
+        </class>
+        <class name="FriendsApi.Host.Infra.Logging.ExceptionMiddleware" filename="FriendsApi.Host/Infra/Logging/ExceptionMiddleware.cs" line-rate="0.1923" branch-rate="0" complexity="5">
+          <methods>
+            <method name="HandleExceptionAsync" signature="(Microsoft.AspNetCore.Http.HttpContext,System.Exception)" line-rate="0" branch-rate="0" complexity="2">
+              <lines>
+                <line number="47" hits="0" branch="False" />
+                <line number="48" hits="0" branch="False" />
+                <line number="50" hits="0" branch="False" />
+                <line number="52" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="73" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="53" hits="0" branch="False" />
+                <line number="54" hits="0" branch="False" />
+                <line number="55" hits="0" branch="False" />
+                <line number="56" hits="0" branch="False" />
+                <line number="57" hits="0" branch="False" />
+                <line number="58" hits="0" branch="False" />
+                <line number="60" hits="0" branch="False" />
+                <line number="61" hits="0" branch="False" />
+                <line number="62" hits="0" branch="False" />
+                <line number="63" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="AllMessages" signature="(System.Exception)" line-rate="0" branch-rate="0" complexity="2">
+              <lines>
+                <line number="68" hits="0" branch="False" />
+                <line number="69" hits="0" branch="False" />
+                <line number="70" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="48" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="72" hits="0" branch="False" />
+                <line number="73" hits="0" branch="False" />
+                <line number="74" hits="0" branch="False" />
+                <line number="76" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Hosting.IHostEnvironment,Microsoft.Extensions.Logging.ILogger`1&lt;FriendsApi.Host.Infra.Logging.ExceptionMiddleware&gt;)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="26" hits="2" branch="False" />
+                <line number="28" hits="2" branch="False" />
+                <line number="29" hits="2" branch="False" />
+                <line number="30" hits="2" branch="False" />
+                <line number="31" hits="2" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="47" hits="0" branch="False" />
+            <line number="48" hits="0" branch="False" />
+            <line number="50" hits="0" branch="False" />
+            <line number="52" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="73" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="53" hits="0" branch="False" />
+            <line number="54" hits="0" branch="False" />
+            <line number="55" hits="0" branch="False" />
+            <line number="56" hits="0" branch="False" />
+            <line number="57" hits="0" branch="False" />
+            <line number="58" hits="0" branch="False" />
+            <line number="60" hits="0" branch="False" />
+            <line number="61" hits="0" branch="False" />
+            <line number="62" hits="0" branch="False" />
+            <line number="63" hits="0" branch="False" />
+            <line number="68" hits="0" branch="False" />
+            <line number="69" hits="0" branch="False" />
+            <line number="70" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="48" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="72" hits="0" branch="False" />
+            <line number="73" hits="0" branch="False" />
+            <line number="74" hits="0" branch="False" />
+            <line number="76" hits="0" branch="False" />
+            <line number="26" hits="2" branch="False" />
+            <line number="28" hits="2" branch="False" />
+            <line number="29" hits="2" branch="False" />
+            <line number="30" hits="2" branch="False" />
+            <line number="31" hits="2" branch="False" />
+          </lines>
+        </class>
+        <class name="FriendsApi.Host.Infra.Logging.ExceptionMiddleware/&lt;Invoke&gt;d__4" filename="FriendsApi.Host/Infra/Logging/ExceptionMiddleware.cs" line-rate="0.6" branch-rate="0.5" complexity="2">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0.6" branch-rate="0.5" complexity="2">
+              <lines>
+                <line number="37" hits="6" branch="False" />
+                <line number="38" hits="6" branch="False" />
+                <line number="39" hits="0" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="167" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="41" hits="0" branch="False" />
+                <line number="43" hits="6" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="37" hits="6" branch="False" />
+            <line number="38" hits="6" branch="False" />
+            <line number="39" hits="0" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="167" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="41" hits="0" branch="False" />
+            <line number="43" hits="6" branch="False" />
+          </lines>
+        </class>
+        <class name="FriendsApi.Host.Infra.Logging.LogExtensions" filename="FriendsApi.Host/Infra/Logging/LogExtensions.cs" line-rate="1" branch-rate="0.75" complexity="6">
+          <methods>
+            <method name="LogSetup" signature="(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Http.IHttpContextAccessor)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="17" hits="2" branch="False" />
+                <line number="18" hits="2" branch="False" />
+                <line number="19" hits="2" branch="False" />
+                <line number="21" hits="2" branch="False" />
+                <line number="23" hits="2" branch="False" />
+              </lines>
+            </method>
+            <method name="AddLoggingRegistrations" signature="(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationSection)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="26" hits="2" branch="False" />
+                <line number="27" hits="2" branch="False" />
+              </lines>
+            </method>
+            <method name="Enrich" signature="(Serilog.LoggerConfiguration,Microsoft.AspNetCore.Http.IHttpContextAccessor)" line-rate="1" branch-rate="0.75" complexity="4">
+              <lines>
+                <line number="33" hits="2" branch="False" />
+                <line number="34" hits="2" branch="False" />
+                <line number="35" hits="2" branch="False" />
+                <line number="37" hits="2" branch="False" />
+                <line number="38" hits="2" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="37" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="39" hits="2" branch="False" />
+                <line number="41" hits="2" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="167" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="42" hits="2" branch="False" />
+                <line number="43" hits="2" branch="False" />
+                <line number="44" hits="2" branch="False" />
+                <line number="45" hits="2" branch="False" />
+                <line number="46" hits="2" branch="False" />
+                <line number="47" hits="2" branch="False" />
+                <line number="48" hits="2" branch="False" />
+                <line number="49" hits="2" branch="False" />
+                <line number="50" hits="2" branch="False" />
+                <line number="51" hits="2" branch="False" />
+                <line number="52" hits="2" branch="False" />
+                <line number="53" hits="2" branch="False" />
+                <line number="54" hits="2" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="17" hits="2" branch="False" />
+            <line number="18" hits="2" branch="False" />
+            <line number="19" hits="2" branch="False" />
+            <line number="21" hits="2" branch="False" />
+            <line number="23" hits="2" branch="False" />
+            <line number="26" hits="2" branch="False" />
+            <line number="27" hits="2" branch="False" />
+            <line number="33" hits="2" branch="False" />
+            <line number="34" hits="2" branch="False" />
+            <line number="35" hits="2" branch="False" />
+            <line number="37" hits="2" branch="False" />
+            <line number="38" hits="2" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="37" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="39" hits="2" branch="False" />
+            <line number="41" hits="2" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="167" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="42" hits="2" branch="False" />
+            <line number="43" hits="2" branch="False" />
+            <line number="44" hits="2" branch="False" />
+            <line number="45" hits="2" branch="False" />
+            <line number="46" hits="2" branch="False" />
+            <line number="47" hits="2" branch="False" />
+            <line number="48" hits="2" branch="False" />
+            <line number="49" hits="2" branch="False" />
+            <line number="50" hits="2" branch="False" />
+            <line number="51" hits="2" branch="False" />
+            <line number="52" hits="2" branch="False" />
+            <line number="53" hits="2" branch="False" />
+            <line number="54" hits="2" branch="False" />
+          </lines>
+        </class>
+        <class name="FriendsApi.Host.Controllers.FriendsController" filename="FriendsApi.Host/Controllers/FriendsController.cs" line-rate="0.88" branch-rate="0.5" complexity="10">
+          <methods>
+            <method name="Get" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="36" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="Get" signature="(System.Int32)" line-rate="0.75" branch-rate="0.5" complexity="2">
+              <lines>
+                <line number="51" hits="1" branch="False" />
+                <line number="52" hits="1" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="14" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="53" hits="0" branch="False" />
+                <line number="55" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="Post" signature="(FriendsApi.Model.Types.Friend)" line-rate="1" branch-rate="0.5" complexity="2">
+              <lines>
+                <line number="67" hits="1" branch="False" />
+                <line number="69" hits="1" branch="False" />
+                <line number="70" hits="1" branch="False" />
+                <line number="72" hits="1" branch="False" />
+                <line number="74" hits="1" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="67" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+              </lines>
+            </method>
+            <method name="Put" signature="(System.Int32,FriendsApi.Model.Types.Friend)" line-rate="0.8" branch-rate="0.5" complexity="2">
+              <lines>
+                <line number="88" hits="1" branch="False" />
+                <line number="89" hits="1" branch="False" />
+                <line number="91" hits="1" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="21" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="92" hits="1" branch="False" />
+                <line number="94" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="Delete" signature="(System.Int32)" line-rate="0.75" branch-rate="0.5" complexity="2">
+              <lines>
+                <line number="108" hits="1" branch="False" />
+                <line number="110" hits="1" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="14" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="112" hits="1" branch="False" />
+                <line number="115" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(FootballContacts.Repositories.IFriendsRepository,Microsoft.Extensions.Logging.ILogger`1&lt;FriendsApi.Host.Controllers.FriendsController&gt;)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="19" hits="5" branch="False" />
+                <line number="20" hits="5" branch="False" />
+                <line number="21" hits="5" branch="False" />
+                <line number="23" hits="5" branch="False" />
+                <line number="24" hits="5" branch="False" />
+                <line number="25" hits="5" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="36" hits="1" branch="False" />
+            <line number="51" hits="1" branch="False" />
+            <line number="52" hits="1" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="14" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="53" hits="0" branch="False" />
+            <line number="55" hits="1" branch="False" />
+            <line number="67" hits="1" branch="False" />
+            <line number="69" hits="1" branch="False" />
+            <line number="70" hits="1" branch="False" />
+            <line number="72" hits="1" branch="False" />
+            <line number="74" hits="1" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="67" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="88" hits="1" branch="False" />
+            <line number="89" hits="1" branch="False" />
+            <line number="91" hits="1" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="21" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="92" hits="1" branch="False" />
+            <line number="94" hits="0" branch="False" />
+            <line number="108" hits="1" branch="False" />
+            <line number="110" hits="1" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="14" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="112" hits="1" branch="False" />
+            <line number="115" hits="0" branch="False" />
+            <line number="19" hits="5" branch="False" />
+            <line number="20" hits="5" branch="False" />
+            <line number="21" hits="5" branch="False" />
+            <line number="23" hits="5" branch="False" />
+            <line number="24" hits="5" branch="False" />
+            <line number="25" hits="5" branch="False" />
+          </lines>
+        </class>
+        <class name="FriendsApi.Host.Controllers.HealthCheckController" filename="FriendsApi.Host/Controllers/HealthCheckController.cs" line-rate="1" branch-rate="1" complexity="1">
+          <methods>
+            <method name="Get" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="18" hits="1" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="18" hits="1" branch="False" />
+          </lines>
+        </class>
+      </classes>
+    </package>
+    <package name="FriendsApi" line-rate="0.8918" branch-rate="0.5" complexity="11">
+      <classes>
+        <class name="FootballContacts.Repositories.FriendsRepository" filename="FriendsApi/Repositories/FriendsRepository.cs" line-rate="0.8571" branch-rate="0.5" complexity="8">
+          <methods>
+            <method name="Get" signature="(System.Int32)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="34" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="List" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="38" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="Create" signature="(FriendsApi.Model.Types.Friend)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="43" hits="1" branch="False" />
+                <line number="45" hits="1" branch="False" />
+                <line number="47" hits="1" branch="False" />
+                <line number="48" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="Update" signature="(FriendsApi.Model.Types.Friend)" line-rate="0.7777" branch-rate="0.5" complexity="2">
+              <lines>
+                <line number="53" hits="1" branch="False" />
+                <line number="54" hits="1" branch="False" />
+                <line number="56" hits="1" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="147" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="58" hits="1" branch="False" />
+                <line number="60" hits="1" branch="False" />
+                <line number="62" hits="1" branch="False" />
+                <line number="65" hits="1" branch="False" />
+                <line number="68" hits="0" branch="False" />
+                <line number="71" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="Delete" signature="(System.Int32)" line-rate="0.7777" branch-rate="0.5" complexity="2">
+              <lines>
+                <line number="76" hits="1" branch="False" />
+                <line number="77" hits="1" branch="False" />
+                <line number="79" hits="1" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="129" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="81" hits="1" branch="False" />
+                <line number="83" hits="1" branch="False" />
+                <line number="85" hits="1" branch="False" />
+                <line number="88" hits="1" branch="False" />
+                <line number="91" hits="0" branch="False" />
+                <line number="93" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(FootballContacts.Contexts.FriendContext,Microsoft.Extensions.Logging.ILogger`1&lt;FootballContacts.Repositories.FriendsRepository&gt;)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="26" hits="5" branch="False" />
+                <line number="28" hits="5" branch="False" />
+                <line number="29" hits="5" branch="False" />
+                <line number="30" hits="5" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="34" hits="1" branch="False" />
+            <line number="38" hits="1" branch="False" />
+            <line number="43" hits="1" branch="False" />
+            <line number="45" hits="1" branch="False" />
+            <line number="47" hits="1" branch="False" />
+            <line number="48" hits="1" branch="False" />
+            <line number="53" hits="1" branch="False" />
+            <line number="54" hits="1" branch="False" />
+            <line number="56" hits="1" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="147" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="58" hits="1" branch="False" />
+            <line number="60" hits="1" branch="False" />
+            <line number="62" hits="1" branch="False" />
+            <line number="65" hits="1" branch="False" />
+            <line number="68" hits="0" branch="False" />
+            <line number="71" hits="0" branch="False" />
+            <line number="76" hits="1" branch="False" />
+            <line number="77" hits="1" branch="False" />
+            <line number="79" hits="1" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="129" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="81" hits="1" branch="False" />
+            <line number="83" hits="1" branch="False" />
+            <line number="85" hits="1" branch="False" />
+            <line number="88" hits="1" branch="False" />
+            <line number="91" hits="0" branch="False" />
+            <line number="93" hits="0" branch="False" />
+            <line number="26" hits="5" branch="False" />
+            <line number="28" hits="5" branch="False" />
+            <line number="29" hits="5" branch="False" />
+            <line number="30" hits="5" branch="False" />
+          </lines>
+        </class>
+        <class name="FootballContacts.Contexts.FriendContext" filename="FriendsApi/Context/FriendsContext.cs" line-rate="1" branch-rate="1" complexity="3">
+          <methods>
+            <method name="get_Friends" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="12" hits="12" branch="False" />
+              </lines>
+            </method>
+            <method name="OnModelCreating" signature="(Microsoft.EntityFrameworkCore.ModelBuilder)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="17" hits="1" branch="False" />
+                <line number="18" hits="1" branch="False" />
+                <line number="19" hits="1" branch="False" />
+                <line number="20" hits="1" branch="False" />
+                <line number="21" hits="2" branch="False" />
+                <line number="22" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(Microsoft.EntityFrameworkCore.DbContextOptions`1&lt;FootballContacts.Contexts.FriendContext&gt;)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="8" hits="5" branch="False" />
+                <line number="10" hits="5" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="12" hits="12" branch="False" />
+            <line number="17" hits="1" branch="False" />
+            <line number="18" hits="1" branch="False" />
+            <line number="19" hits="1" branch="False" />
+            <line number="20" hits="1" branch="False" />
+            <line number="21" hits="2" branch="False" />
+            <line number="22" hits="1" branch="False" />
+            <line number="8" hits="5" branch="False" />
+            <line number="10" hits="5" branch="False" />
+          </lines>
+        </class>
+      </classes>
+    </package>
+  </packages>
+</coverage>
