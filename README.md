@@ -1,8 +1,37 @@
 # Docker Compose - Test Dotnetcore REST Api
 
+## Initial requirement
+
+docker-compose (or kind where applicable) to create local/extra environments to run a full app including the service-owned persistence.
+Service dependencies can be mocked with ad-hoc compose service or be delegated to other environment service if read-only. 
+
+## Tools used in this POC
+
+ - Docker Desktop 
+ - VSCode
+   - Docker extension
+ - Visual Studio 2019 
+ - Sql Management Studio
+ - NSwagStudio
+ - dotnetcore 3.1 LTS
+   - Serilog
+   - Microsoft.EntityFrameworkCore.SqlServer 
+   - Swashbuckle.AspNetCore
+
+ - Test libraries
+   - coverlet.msbuild
+   - Microsoft.NET.Test.Sdk
+   - Microsoft.AspNetCore.TestHost
+   - Microsoft.AspNet.WebApi.Client
+   - nunit
+   - FluentAssertions
+   - Moq
+   - SpecFlow
+
 ## How to
 
 ### tests and code coverage 
+
  - docker-compose -f ./docker-compose-testapi.yml up unit integration e2e
  - docker-compose -f ./docker-compose-testapi.yml up coverage
 
@@ -10,24 +39,34 @@
  - docker-compose -f ./docker-compose-testapi.yml build
  - docker-compose -f ./docker-compose-testapi.yml down
 
-### local api up/build/downn (db+api)
+### local api up/build/down (db+api)
+
  - docker-compose up
  - docker-compose down
  - docker-compose build
 
+
 ## Azure pipelines
 
+ - https://dev.azure.com/sheltertake/dotnetcore-api-template
+ - [Test results](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=2&view=ms.vss-test-web.build-test-results-tab)
+ - [Coverage results](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=2&view=codecoverage-tab)
+
+  
 ```yaml
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
 
 steps:
 - bash: 'docker-compose -f ./docker-compose-testapi.yml up unit integration e2e'
   displayName: 'Docker Compose Test'
 
-steps:
 - bash: 'docker-compose -f ./docker-compose-testapi.yml up coverage'
   displayName: 'Docker Compose Coverage'
 
-steps:
 - task: PublishTestResults@2
   displayName: 'Publish Test Results **/*.trx'
   inputs:
@@ -35,7 +74,6 @@ steps:
     testResultsFiles: '**/*.trx'
     mergeTestResults: true
 
-steps:
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish code coverage from **/Cobertura.xml'
   inputs:
@@ -43,6 +81,44 @@ steps:
     summaryFileLocation: '**/Cobertura.xml'
 ```
 
+## Github actions  (wip)
+
+ - https://github.com/sheltertake/dotnetcore-api-template
+ - [Action wip](https://github.com/sheltertake/dotnetcore-api-template/runs/1328354542?check_suite_focus=true)
+
+```yaml
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the main branch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: Docker Compose Test
+        run: docker-compose -f ./docker-compose-testapi.yml up unit integration e2e
+
+      # Runs a set of commands using the runners shell
+      - name: Docker Compose Coverage
+        run: docker-compose -f ./docker-compose-testapi.yml up coverage
+```
 
 ## Compose - YAML
 
@@ -55,7 +131,7 @@ services:
         image: friendapi-unit-tests
         container_name: friendapi-unit-tests
         build:
-            context: ./src/
+            context: .
             dockerfile: ./Dockerfile.UnitTests
         volumes:
             - ./results:/app/results
@@ -63,7 +139,7 @@ services:
         image: friendapi-integration-tests
         container_name: friendapi-integration-tests
         build:
-            context: ./src/
+            context: .
             dockerfile: ./Dockerfile.IntegrationTests
         volumes:
             - ./results:/app/results    
@@ -77,7 +153,7 @@ services:
         image: friendapi-e2e-tests
         container_name: friendapi-e2e-tests
         build:
-            context: ./src/
+            context: .
             dockerfile: ./Dockerfile.E2eTests
         volumes:
             - ./results:/app/results    
@@ -90,7 +166,7 @@ services:
         image: friendapi-reportgenerator
         container_name: friendapi-reportgenerator
         build:
-            context: ./src/
+            context: .
             dockerfile: ./Dockerfile.ReportGenerator
         depends_on:
             - unit
@@ -101,7 +177,7 @@ services:
         image: friendapi
         container_name: friendapi
         build:
-            context: ./src/
+            context: .
             dockerfile: ./Dockerfile
         networks:
             - dbnet
@@ -138,7 +214,7 @@ services:
         image: friendapi
         container_name: friendapi
         build:
-            context: ./src/
+            context: .
             dockerfile: ./Dockerfile
         networks:
             - dbnet
@@ -311,17 +387,3 @@ CMD /app/tools/reportgenerator -reports:/app/results/results*.xml -targetdir:/ap
 
  - report generator doesn't find src code on azure pipeline
  - compose up coverage -> I'd like to wait unit integration and e2e but depend wait only start not end
-
-## Local commands launched during writing
-
- - PS C:\VSTS\PLAYGROUND\testing-playground> docker-compose build
- - PS C:\VSTS\PLAYGROUND\testing-playground> docker-compose up api
-
- - C:\VSTS\PLAYGROUND\testing-playground\src\1-api>docker build -t friendapi -f Dockerfile .
- - C:\VSTS\PLAYGROUND\testing-playground\src\1-api>
-   - docker build -t friendapi-integration-tests -f .\Dockerfile.IntegrationTests --network=dbnet .
-   - docker run --rm -it --network=dbnet --name  friendapi-integration-tests friendapi-integration-tests 
-   - docker build -t friendapi-unit-tests -f .\Dockerfile.UnitTests .
-   - docker run --rm -it --name  friendapi-unit-tests friendapi-unit-tests 
-   - docker build -t friendapi-viewresults -f .\Dockerfile.ViewResults .
-   - docker run --rm -it --name  friendapi-viewresults friendapi-viewresults

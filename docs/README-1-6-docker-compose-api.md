@@ -10,7 +10,7 @@
  - docker-compose -f ./docker-compose-testapi.yml build
  - docker-compose -f ./docker-compose-testapi.yml down
 
-### local api up/build/downn (db+api)
+### local api up/build/down (db+api)
  - docker-compose up
  - docker-compose down
  - docker-compose build
@@ -55,7 +55,7 @@ services:
         image: friendapi-unit-tests
         container_name: friendapi-unit-tests
         build:
-            context: ./src/
+            context: .
             dockerfile: ./Dockerfile.UnitTests
         volumes:
             - ./results:/app/results
@@ -63,7 +63,7 @@ services:
         image: friendapi-integration-tests
         container_name: friendapi-integration-tests
         build:
-            context: ./src/
+            context: .
             dockerfile: ./Dockerfile.IntegrationTests
         volumes:
             - ./results:/app/results    
@@ -77,7 +77,7 @@ services:
         image: friendapi-e2e-tests
         container_name: friendapi-e2e-tests
         build:
-            context: ./src/
+            context: .
             dockerfile: ./Dockerfile.E2eTests
         volumes:
             - ./results:/app/results    
@@ -90,7 +90,7 @@ services:
         image: friendapi-reportgenerator
         container_name: friendapi-reportgenerator
         build:
-            context: ./src/
+            context: .
             dockerfile: ./Dockerfile.ReportGenerator
         depends_on:
             - unit
@@ -101,7 +101,7 @@ services:
         image: friendapi
         container_name: friendapi
         build:
-            context: ./src/
+            context: .
             dockerfile: ./Dockerfile
         networks:
             - dbnet
@@ -138,7 +138,7 @@ services:
         image: friendapi
         container_name: friendapi
         build:
-            context: ./src/
+            context: .
             dockerfile: ./Dockerfile
         networks:
             - dbnet

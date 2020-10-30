@@ -7,8 +7,6 @@ name: CI
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,3 +27,4 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Docker Compose Coverage
         run: docker-compose -f ./docker-compose-testapi.yml up coverage
+

@@ -28,7 +28,7 @@
    - mount volume
    - connect via sql management studio
    - create friends database db/table etc...
-   - stop/rerun/destory/recreate docker
+   - stop/rerun/destroy/recreate docker
      - I want to understand how reuse a database as "template"
  
  - API
