@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - master
 
@@ -10,10 +5,21 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- bash: 'docker-compose -f ./docker-compose-testapi.yml up unit integration e2e'
+  displayName: 'Docker Compose Test'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- bash: 'docker-compose -f ./docker-compose-testapi.yml up coverage'
+  displayName: 'Docker Compose Coverage'
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results **/*.trx'
+  inputs:
+    testResultsFormat: VSTest
+    testResultsFiles: '**/*.trx'
+    mergeTestResults: true
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage from **/Cobertura.xml'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '**/Cobertura.xml'
