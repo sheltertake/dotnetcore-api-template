@@ -94,12 +94,12 @@ docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=yourStrong1234!Password' -p 1433:1
  - copy files from volumes
 
 ```powershell
-PS C:\Users\massimiliano.balestr> docker ps
+PS C:\temp> docker ps
 CONTAINER ID        IMAGE                                        COMMAND                  CREATED             STATUS              PORTS                    NAMES
 44f7ef543fe5        mcr.microsoft.com/mssql/server:2017-latest   "/opt/mssql/bin/nonr…"   9 minutes ago       Up 9 minutes        0.0.0.0:1433->1433/tcp   testsqlserver
 
-PS C:\Users\massimiliano.balestr> docker cp 44f7ef543fe5:/var/opt/mssql/data/Friends.mdf c:\temp\poc-docker
-PS C:\Users\massimiliano.balestr> docker cp 44f7ef543fe5:/var/opt/mssql/data/Friends_log.ldf c:\temp\poc-docker
+PS C:\temp> docker cp 44f7ef543fe5:/var/opt/mssql/data/Friends.mdf c:\temp\poc-docker
+PS C:\temp> docker cp 44f7ef543fe5:/var/opt/mssql/data/Friends_log.ldf c:\temp\poc-docker
 ```
 
 ## Docker - Sql Server - CLI

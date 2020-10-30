@@ -10,7 +10,7 @@
  - docker-compose -f ./docker-compose-testapi.yml build
  - docker-compose -f ./docker-compose-testapi.yml down
 
-### local api up/build/downn (db+api)
+### local api up/build/down (db+api)
  - docker-compose up
  - docker-compose down
  - docker-compose build
