@@ -29,3 +29,12 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Docker Compose Coverage
         run: docker-compose -f ./docker-compose-testapi.yml up coverage
+         
+      # Publish Unit Test Results
+      - uses: testspace-com/setup-testspace@v1
+        with:
+          domain: ${{ github.repository_owner }}
+      - name: Push result to Testspace server
+        run: |
+          results/*.*
+        if: always()
