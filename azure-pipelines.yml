@@ -4,6 +4,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  disable.coverage.autogenerate: 'true'
+
 steps:
 - bash: 'docker-compose -f ./docker-compose-testapi.yml up unit integration e2e'
   displayName: 'Docker Compose Test'
@@ -23,4 +26,4 @@ steps:
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: '**/Cobertura.xml'
-    reportDirectory: '/app/results'
+    reportDirectory: '**/results'
