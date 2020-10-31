@@ -1,0 +1,29 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  disable.coverage.autogenerate: 'true'
+
+steps:
+- bash: 'docker-compose -f ./docker-compose-testapi.yml up e2e'
+  displayName: 'Docker Compose E2e Test only'
+
+- bash: 'docker-compose -f ./docker-compose-testapi.yml up coverage'
+  displayName: 'Docker Compose E2e Client Coverage'
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results **/*.trx'
+  inputs:
+    testResultsFormat: VSTest
+    testResultsFiles: '**/*.trx'
+    mergeTestResults: true
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage from **/Cobertura.xml'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '**/Cobertura.xml'
+    reportDirectory: '**/results'

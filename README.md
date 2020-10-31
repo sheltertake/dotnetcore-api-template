@@ -30,26 +30,31 @@ Service dependencies can be mocked with ad-hoc compose service or be delegated t
 
 ## TODO/NiceToHave
 
- - Separate host build and e2e coverage build. Probably the report is clearer and honest without e2e test client that is not part of production code.
- - Add other tests (unit tests are not implemented, integration tests with in memory database for a more clean scenario)
+ - Add other tests (unit tests are not implemented, integration tests against memory database - standard scenarios)
  - Add other type of tests
    - performance/load/profiling
    - fitness/arch tests (out of scope but interesting)
  - Add other backend scenario
 
- - Investigate better the depends on feature on compose. 
- - Investigate why these 2 builds have produced different results 
+ - Investigate better the depends_on option on compose. 
+ - Investigate why these 2 builds produced different results 
    - [OK](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=10&view=codecoverage-tab)
    - [KO](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=9&view=codecoverage-tab)
 
 ## How to
 
-### tests and code coverage 
+### api tests and code coverage
 
- - docker-compose -f ./docker-compose-testapi.yml up unit integration e2e
+ - docker-compose -f ./docker-compose-testapi.yml up unit integration
+ - docker-compose -f ./docker-compose-testapi.yml up coverage
+
+### e2e client code coverage 
+
+ - docker-compose -f ./docker-compose-testapi.yml up e2e
  - docker-compose -f ./docker-compose-testapi.yml up coverage
 
 ### build tests - destroy tests containers
+
  - docker-compose -f ./docker-compose-testapi.yml build
  - docker-compose -f ./docker-compose-testapi.yml down
 
@@ -67,7 +72,7 @@ Service dependencies can be mocked with ad-hoc compose service or be delegated t
  - [Coverage results](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=2&view=codecoverage-tab)
  - [E2e client coverage](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=10&view=codecoverage-tab)
    - all api operations are covered.
-   - not all code branches are covered. some branch could be covered by more precise scenario test. some branch I'm not really sure is testable 
+   - not all code branches are covered. some branch could be covered by more precise scenario test. I'm not sure all code branches are testable. The client is auto-generated and is very verbose. 
 
 Thanks [Daniel](https://github.com/danielpalme) for the help about the conflict between the report generated in compose step and the auto-generated report by PublishCodeCoverageResults task. More info [here](https://github.com/danielpalme/ReportGenerator/wiki/Integration#attention).
   
