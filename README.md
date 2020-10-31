@@ -28,6 +28,20 @@ Service dependencies can be mocked with ad-hoc compose service or be delegated t
    - Moq
    - SpecFlow
 
+## TODO/NiceToHave
+
+ - Separate host build and e2e coverage build. Probably the report is clearer and honest without e2e test client that is not part of production code.
+ - Add other tests (unit tests are not implemented, integration tests with in memory database for a more clean scenario)
+ - Add other type of tests
+   - performance/load/profiling
+   - fitness/arch tests (out of scope but interesting)
+ - Add other backend scenario
+
+ - Investigate better the depends on feature on compose. 
+ - Investigate why these 2 builds have produced different results 
+   - [OK](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=10&view=codecoverage-tab)
+   - [KO](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=9&view=codecoverage-tab)
+
 ## How to
 
 ### tests and code coverage 
@@ -51,14 +65,21 @@ Service dependencies can be mocked with ad-hoc compose service or be delegated t
  - https://dev.azure.com/sheltertake/dotnetcore-api-template
  - [Test results](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=2&view=ms.vss-test-web.build-test-results-tab)
  - [Coverage results](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=2&view=codecoverage-tab)
+ - [E2e client coverage](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=10&view=codecoverage-tab)
+   - all api operations are covered.
+   - not all code branches are covered. some branch could be covered by more precise scenario test. some branch I'm not really sure is testable 
 
+Thanks [Daniel](https://github.com/danielpalme) for the help about the conflict between the report generated in compose step and the auto-generated report by PublishCodeCoverageResults task. More info [here](https://github.com/danielpalme/ReportGenerator/wiki/Integration#attention).
   
 ```yaml
 trigger:
-- master
+- main
 
 pool:
   vmImage: 'ubuntu-latest'
+
+variables:
+  disable.coverage.autogenerate: 'true'
 
 steps:
 - bash: 'docker-compose -f ./docker-compose-testapi.yml up unit integration e2e'
@@ -79,6 +100,7 @@ steps:
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: '**/Cobertura.xml'
+    reportDirectory: '**/results'
 ```
 
 ## Github actions  (wip)
@@ -361,8 +383,8 @@ CMD /app/tools/reportgenerator -reports:/app/results/results*.xml -targetdir:/ap
  - [POC latest build](TODO)
  - [POC Final pipeline](TODO)
  
- 
  - [report generator](https://github.com/danielpalme/ReportGenerator)
+ - [report generator integration](https://github.com/danielpalme/ReportGenerator/wiki/Integration#attention)
  - [coverlet issues](https://github.com/coverlet-coverage/coverlet/issues)
  - [coverlet](https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/MSBuildIntegration.md)
  - [Docker Compose Wait for Dependencies](https://www.datanovia.com/en/courses/docker-compose-wait-for-dependencies/)
@@ -385,5 +407,4 @@ CMD /app/tools/reportgenerator -reports:/app/results/results*.xml -targetdir:/ap
 
 ## Issues
 
- - report generator doesn't find src code on azure pipeline
  - compose up coverage -> I'd like to wait unit integration and e2e but depend wait only start not end
