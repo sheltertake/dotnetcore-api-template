@@ -203,7 +203,7 @@ services:
         container_name: friendapi-unit-tests
         build:
             context: .
-            dockerfile: ./Dockerfile.UnitTests
+            dockerfile: Dockerfile.UnitTests
         volumes:
             - ./results:/app/results
     integration:
@@ -211,7 +211,7 @@ services:
         container_name: friendapi-integration-tests
         build:
             context: .
-            dockerfile: ./Dockerfile.IntegrationTests
+            dockerfile: Dockerfile.IntegrationTests
         volumes:
             - ./results:/app/results    
         depends_on:
@@ -225,7 +225,7 @@ services:
         container_name: friendapi-e2e-tests
         build:
             context: .
-            dockerfile: ./Dockerfile.E2eTests
+            dockerfile: Dockerfile.E2eTests
         volumes:
             - ./results:/app/results    
         depends_on:
@@ -238,10 +238,7 @@ services:
         container_name: friendapi-reportgenerator
         build:
             context: .
-            dockerfile: ./Dockerfile.ReportGenerator
-        depends_on:
-            - unit
-            - integration 
+            dockerfile: Dockerfile.ReportGenerator
         volumes:
             - ./results:/app/results
     api:
@@ -249,7 +246,7 @@ services:
         container_name: friendapi
         build:
             context: .
-            dockerfile: ./Dockerfile
+            dockerfile: Dockerfile
         networks:
             - dbnet
             - apinet
@@ -274,6 +271,7 @@ networks:
         name: dbnet
     apinet:
         name: apinet    
+        
 ```
 
 ### Api compose local development
