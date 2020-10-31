@@ -41,9 +41,6 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.ReportGenerator
-        depends_on:
-            - unit
-            - integration 
         volumes:
             - ./results:/app/results
     api:
