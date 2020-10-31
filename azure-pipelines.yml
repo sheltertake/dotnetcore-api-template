@@ -27,3 +27,4 @@ steps:
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: '**/Cobertura.xml'
+    reportDirectory: '/app/results'
