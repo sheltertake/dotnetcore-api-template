@@ -67,14 +67,58 @@ Service dependencies can be mocked with ad-hoc compose service or be delegated t
 
 ## Azure pipelines
 
- - https://dev.azure.com/sheltertake/dotnetcore-api-template
- - [Test results](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=2&view=ms.vss-test-web.build-test-results-tab)
- - [Coverage results](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=2&view=codecoverage-tab)
- - [E2e client coverage](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=10&view=codecoverage-tab)
-   - all api operations are covered.
-   - not all code branches are covered. some branch could be covered by more precise scenario test. I'm not sure all code branches are testable. The client is auto-generated and is very verbose. 
+### Api tests (pipelines/azure-pipelines-api-tests-and-coverage.yml)
+
+   - [Definition](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build?definitionId=3)
+   - [Results](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=14&view=results)
+   - [Test results](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=14&view=ms.vss-test-web.build-test-results-tab)
+   - [Code coverage](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=14&view=codecoverage-tab)
+
+This pipeline launch Unit tests (no dependencies) and Integration Tests. Integration tests uses database so before starting tests compose startup the sql docker instance.
 
 Thanks [Daniel](https://github.com/danielpalme) for the help about the conflict between the report generated in compose step and the auto-generated report by PublishCodeCoverageResults task. More info [here](https://github.com/danielpalme/ReportGenerator/wiki/Integration#attention).
+
+```yaml
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  disable.coverage.autogenerate: 'true'
+
+steps:
+- bash: 'docker-compose -f ./docker-compose-testapi.yml up unit integration'
+  displayName: 'Docker Compose - Unit And Integration Test Against Docker Sql Server'
+
+- bash: 'docker-compose -f ./docker-compose-testapi.yml up coverage'
+  displayName: 'Docker Compose - Code Coverage Report'
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results **/*.trx'
+  inputs:
+    testResultsFormat: VSTest
+    testResultsFiles: '**/*.trx'
+    mergeTestResults: true
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage from **/Cobertura.xml'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '**/Cobertura.xml'
+    reportDirectory: '**/results'
+```
+
+### E2e Client Code Coverage:  (pipelines/azure-pipelines-e2e-coverage.yml)
+
+   - [Definition](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build?definitionId=2)
+   - [Results](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=13&view=results)
+   - [Test results](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=13&view=ms.vss-test-web.build-test-results-tab)
+   - [Code coverage](https://dev.azure.com/sheltertake/dotnetcore-api-template/_build/results?buildId=13&view=codecoverage-tab)
+
+  This pipeline launch E2e Test project. Compose depends_on startup database and then the api. When api is up E2e runs tests against it. The report generator tool collect coverage only for the api client. 
+
   
 ```yaml
 trigger:
@@ -87,11 +131,11 @@ variables:
   disable.coverage.autogenerate: 'true'
 
 steps:
-- bash: 'docker-compose -f ./docker-compose-testapi.yml up unit integration e2e'
-  displayName: 'Docker Compose Test'
+- bash: 'docker-compose -f ./docker-compose-testapi.yml up e2e'
+  displayName: 'Docker Compose - E2e Test only'
 
 - bash: 'docker-compose -f ./docker-compose-testapi.yml up coverage'
-  displayName: 'Docker Compose Coverage'
+  displayName: 'Docker Compose - E2e Client Coverage'
 
 - task: PublishTestResults@2
   displayName: 'Publish Test Results **/*.trx'
