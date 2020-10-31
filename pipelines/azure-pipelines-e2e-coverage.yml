@@ -9,10 +9,10 @@ variables:
 
 steps:
 - bash: 'docker-compose -f ./docker-compose-testapi.yml up e2e'
-  displayName: 'Docker Compose E2e Test only'
+  displayName: 'Docker Compose - E2e Test only'
 
 - bash: 'docker-compose -f ./docker-compose-testapi.yml up coverage'
-  displayName: 'Docker Compose E2e Client Coverage'
+  displayName: 'Docker Compose - E2e Client Coverage'
 
 - task: PublishTestResults@2
   displayName: 'Publish Test Results **/*.trx'

@@ -8,11 +8,11 @@ variables:
   disable.coverage.autogenerate: 'true'
 
 steps:
-- bash: 'docker-compose -f ./docker-compose-testapi.yml up unit integration e2e'
-  displayName: 'Docker Compose Test'
+- bash: 'docker-compose -f ./docker-compose-testapi.yml up unit integration'
+  displayName: 'Docker Compose - Unit And Integration Test Against Docker Sql Server'
 
 - bash: 'docker-compose -f ./docker-compose-testapi.yml up coverage'
-  displayName: 'Docker Compose Coverage'
+  displayName: 'Docker Compose - Code Coverage Report'
 
 - task: PublishTestResults@2
   displayName: 'Publish Test Results **/*.trx'
