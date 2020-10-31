@@ -4,6 +4,10 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+- name: disable.coverage.autogenerate
+  value: true
+
 steps:
 - bash: 'docker-compose -f ./docker-compose-testapi.yml up unit integration e2e'
   displayName: 'Docker Compose Test'
