@@ -1,0 +1,43 @@
+version: "3"
+services:
+    api:
+        image: friendapi-profiling
+        container_name: friendapi-profiling
+        build:
+            context: .
+            dockerfile: ./Dockerfile.Profiling
+        volumes:
+            - ./tools:/tools
+            - ./snapshots:/snapshots
+        networks:
+            - dbnet
+            - apinet
+        depends_on:
+            - db  
+        environment:
+            - ASPNETCORE_ENVIRONMENT=compose
+        ports:    
+            - "5001:80"     
+    db:
+        image: custom-mssql
+        container_name: custom-mssql
+        build:
+            context: ./database
+            dockerfile: Dockerfile
+        networks:
+            - dbnet
+        ports:
+            - "1433:1433"      
+    wrk12sync:
+        image: skandyla/wrk
+        container_name: wrk12sync
+        networks:
+            - apinet
+        command: http://api/friends?sync=true -t12 -c50 -d10s --latency
+    
+networks:
+    dbnet:
+        name: dbnet
+    apinet:
+        name: apinet
+        
