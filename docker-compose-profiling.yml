@@ -7,7 +7,6 @@ services:
             context: .
             dockerfile: ./Dockerfile.Profiling
         volumes:
-            - ./tools:/tools
             - ./snapshots:/snapshots
         networks:
             - dbnet
@@ -28,12 +27,16 @@ services:
             - dbnet
         ports:
             - "1433:1433"      
-    wrk12sync:
+    wrk6async:
         image: skandyla/wrk
-        container_name: wrk12sync
+        container_name: wrk6async
         networks:
             - apinet
-        command: http://api/friends?sync=true -t12 -c50 -d10s --latency
+        depends_on:
+            - api  
+        # entrypoint: sleep 30 && wrk
+        entrypoint: sh -c "sleep 10 && wrk -t3 -c5 -d10s --latency http://api/friends"
+        
     
 networks:
     dbnet:

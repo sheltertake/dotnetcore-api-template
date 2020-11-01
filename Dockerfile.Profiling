@@ -1,17 +1,49 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+
+WORKDIR /tools/wrk
+
+RUN apt-get update && apt-get install build-essential libssl-dev git -y
+RUN git clone https://github.com/wg/wrk.git /tools/wrk
+RUN make
+
+WORKDIR /tools/dottrace
+
+RUN wget -qO- https://download.jetbrains.com/resharper/dotUltimate.2020.2.4/JetBrains.dotTrace.CommandLineTools.linux-x64.2020.2.4.tar.gz | tar xvz -C /tools/dottrace
+
+WORKDIR /tools/dotmemory
+
+RUN wget -qO- https://download.jetbrains.com/resharper/dotUltimate.2020.2.4/JetBrains.dotMemory.Console.linux-x64.2020.2.4.tar.gz | tar xvz -C /tools/dotmemory
+
 WORKDIR /app
 
-COPY . .
+COPY ./src ./src
 
 WORKDIR /app/src/FriendsApi.Host
 RUN dotnet restore 
 RUN dotnet publish -c Release -o out
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-focal AS runtime
+
+WORKDIR /tools
+COPY --from=build /tools ./
+
 WORKDIR /app
-VOLUME /tools
+
 VOLUME /snapshots
 
 COPY --from=build /app/src/FriendsApi.Host/out ./
+COPY ./entrypoint-profiling.sh ./
 
-ENTRYPOINT ["dotnet", "FriendsApi.Host.dll"]
+CMD /app/entrypoint-profiling.sh
+
+# ENTRYPOINT ["dotnet", "FriendsApi.Host.dll"]
+# RUN dotnet /app/FriendsApi.Host.dll &
+
+#RUN sleep 10
+
+#CMD /tools/dotmemory/dotMemory.sh start-net-core /app/FriendsApi.Host.dll --save-to-dir=/snapshots --trigger-timer=30s
+# CMD /tools/dotmemory/dotMemory.sh start-net-core /app/FriendsApi.Host.dll --save-to-dir=/snapshots --trigger-timer=30s --trigger-max-snapshots=2
+#CMD /tools/dotmemory/dotMemory.sh get-snapshot 1 --save-to-dir=/snapshots
+# & sleep 60 ; kill $! && sleep 20
+
+# ENTRYPOINT [ "/bin/bash" ]
