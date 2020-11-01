@@ -1,0 +1,57 @@
+version: "3"
+services:
+    api:
+        image: friendapi
+        container_name: friendapi
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        networks:
+            - dbnet
+            - apinet
+        depends_on:
+            - db  
+        environment:
+            - ASPNETCORE_ENVIRONMENT=compose
+        ports:    
+            - "5001:80"     
+    db:
+        image: custom-mssql
+        container_name: custom-mssql
+        build:
+            context: ./database
+            dockerfile: Dockerfile
+        networks:
+            - dbnet
+        ports:
+            - "1433:1433"      
+    wrk6async:
+        image: skandyla/wrk
+        container_name: wrk6async 
+        networks:
+            - apinet
+        command: http://api/friends -t6 -c10 -d10s --latency 
+    wrk12async:
+        image: skandyla/wrk
+        container_name: wrk12async  
+        networks:
+            - apinet
+        command: http://api/friends -t12 -c50 -d10s --latency 
+    wrk6sync:
+        image: skandyla/wrk
+        container_name: wrk6sync 
+        networks:
+            - apinet
+        command: http://api/friends?sync=true -t6 -c10 -d10s --latency 
+    wrk12sync:
+        image: skandyla/wrk
+        container_name: wrk12sync
+        networks:
+            - apinet
+        command: http://api/friends?sync=true -t12 -c50 -d10s --latency
+networks:
+    dbnet:
+        name: dbnet
+    apinet:
+        name: apinet
+        

@@ -6,6 +6,7 @@ using FootballContacts.Repositories;
 using FriendsApi.Model.Types;
 using FriendsApi.Host.Constants;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FriendsApi.Host.Controllers
 {
@@ -31,9 +32,13 @@ namespace FriendsApi.Host.Controllers
         /// <response code="200">Return the list of Friends</response>
         [HttpGet(Routes.Friends)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<List<Friend>> Get()
+        public async Task<ActionResult<List<Friend>>> GetAsync(bool sync)
         {
-            return Ok(_friendsRepository.List());
+            if (sync)
+                return Ok(_friendsRepository.List());
+
+            var result = await _friendsRepository.ListAsync();
+            return Ok(result);
         }
 
         /// <summary>
