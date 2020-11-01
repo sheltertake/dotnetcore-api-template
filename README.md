@@ -424,6 +424,209 @@ CMD /app/tools/reportgenerator -reports:/app/results/results*.xml -targetdir:/ap
 #classfilters:+*\;-*.Proxies.*
 ```
 
+## Load tests - wrk
+ 
+ - build docker-compose
+   - docker-compose build
+ - startup api & db
+   - docker-compose up
+ - launch wrk 
+   - docker-compose -f .\docker-compose-loadtests.yml up --build wrk6sync 
+     - Requests/sec:     85.13
+     - 855 requests
+   - docker-compose -f .\docker-compose-loadtests.yml up --build wrk12sync
+     - Requests/sec:      1.29
+     - 13 requests
+   - docker-compose -f .\docker-compose-loadtests.yml up --build wrk6async  
+     - Requests/sec:    183.22
+     - 1847 requests
+   - docker-compose -f .\docker-compose-loadtests.yml up --build wrk12async  
+     - Requests/sec:    258.09
+     - 2598 requests
+
+### Code changed
+
+ - Repository
+```csharp
+  public interface IFriendsRepository
+	{
+		Task<List<Friend>> ListAsync();
+		List<Friend> List();
+    //...
+	}
+  public class FriendsRepository : IFriendsRepository
+	{
+    //...
+    public async Task<List<Friend>> ListAsync()
+    {
+      return await _dbContext.Friends.ToListAsync();
+    }
+    public List<Friend> List()
+    {
+      return _dbContext.Friends.ToList();
+    }
+    //...
+  }
+```
+
+ - controller
+
+```csharp
+    [HttpGet(Routes.Friends)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<List<Friend>>> GetAsync(bool sync)
+    {
+        if (sync)
+            return Ok(_friendsRepository.List());
+
+        var result = await _friendsRepository.ListAsync();
+        return Ok(result);
+    }
+```
+
+### Load test compose yaml file
+
+```yaml
+version: "3"
+services:
+    api:
+        image: friendapi
+        container_name: friendapi
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        networks:
+            - dbnet
+            - apinet
+        depends_on:
+            - db  
+        environment:
+            - ASPNETCORE_ENVIRONMENT=compose
+        ports:    
+            - "5001:80"     
+    db:
+        image: custom-mssql
+        container_name: custom-mssql
+        build:
+            context: ./database
+            dockerfile: Dockerfile
+        networks:
+            - dbnet
+        ports:
+            - "1433:1433"      
+    wrk6async:
+        image: skandyla/wrk
+        container_name: wrk6async 
+        networks:
+            - apinet
+        command: http://api/friends -t6 -c10 -d10s --latency 
+    wrk12async:
+        image: skandyla/wrk
+        container_name: wrk12async  
+        networks:
+            - apinet
+        command: http://api/friends -t12 -c50 -d10s --latency 
+    wrk6sync:
+        image: skandyla/wrk
+        container_name: wrk6sync 
+        networks:
+            - apinet
+        command: http://api/friends?sync=true -t6 -c10 -d10s --latency 
+    wrk12sync:
+        image: skandyla/wrk
+        container_name: wrk12sync
+        networks:
+            - apinet
+        command: http://api/friends?sync=true -t12 -c50 -d10s --latency
+networks:
+    dbnet:
+        name: dbnet
+    apinet:
+        name: apinet
+        
+
+```
+
+### Log
+
+```powershell
+PS C:\Github\dotnetcore-api-template> docker-compose -f .\docker-compose-loadtests.yml up --build wrk6sync              
+WARNING: Found orphan containers (wrk6, wrk12) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.
+Creating wrk6sync ... done                                                                                              
+Attaching to wrk6sync
+wrk6sync      | Running 10s test @ http://api/friends?sync=true
+wrk6sync      |   6 threads and 10 connections
+wrk6sync      |   Thread Stats   Avg      Stdev     Max   +/- Stdev
+wrk6sync      |     Latency   157.26ms  351.76ms   1.89s    89.75%
+wrk6sync      |     Req/Sec    25.46     12.40    60.00     60.25%
+wrk6sync      |   Latency Distribution
+wrk6sync      |      50%   36.20ms
+wrk6sync      |      75%   59.63ms
+wrk6sync      |      90%  509.52ms
+wrk6sync      |      99%    1.76s
+wrk6sync      |   855 requests in 10.04s, 193.93KB read
+wrk6sync      |   Socket errors: connect 0, read 0, write 0, timeout 6
+wrk6sync      | Requests/sec:     85.13
+wrk6sync      | Transfer/sec:     19.31KB
+wrk6sync exited with code 0
+PS C:\Github\dotnetcore-api-template> docker-compose -f .\docker-compose-loadtests.yml up --build wrk12sync             
+WARNING: Found orphan containers (wrk12, wrk6) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.
+Creating wrk12sync ... done                                                                                             
+Attaching to wrk12sync
+wrk12sync     | Running 10s test @ http://api/friends?sync=true
+wrk12sync     |   12 threads and 50 connections
+wrk12sync     |   Thread Stats   Avg      Stdev     Max   +/- Stdev
+wrk12sync     |     Latency   367.91ms  407.03ms 809.68ms   55.56%
+wrk12sync     |     Req/Sec     6.00     13.14    40.00     88.89%
+wrk12sync     |   Latency Distribution
+wrk12sync     |      50%   40.60ms
+wrk12sync     |      75%  789.50ms
+wrk12sync     |      90%  809.68ms
+wrk12sync     |      99%  809.68ms
+wrk12sync     |   13 requests in 10.10s, 2.95KB read
+wrk12sync     |   Socket errors: connect 0, read 0, write 0, timeout 4
+wrk12sync     | Requests/sec:      1.29
+wrk12sync     | Transfer/sec:     298.64B
+wrk12sync exited with code 0
+PS C:\Github\dotnetcore-api-template> docker-compose -f .\docker-compose-loadtests.yml up --build wrk6async             
+WARNING: Found orphan containers (wrk6, wrk12) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.
+Creating wrk6async ... done                                                                                             
+Attaching to wrk6async
+wrk6async     | Running 10s test @ http://api/friends
+wrk6async     |   6 threads and 10 connections
+wrk6async     |   Thread Stats   Avg      Stdev     Max   +/- Stdev
+wrk6async     |     Latency    32.66ms   13.97ms 118.35ms   76.52%
+wrk6async     |     Req/Sec    30.59      9.06    60.00     51.25%
+wrk6async     |   Latency Distribution
+wrk6async     |      50%   30.90ms
+wrk6async     |      75%   38.17ms
+wrk6async     |      90%   48.70ms
+wrk6async     |      99%   83.19ms
+wrk6async     |   1847 requests in 10.08s, 418.46KB read
+wrk6async     | Requests/sec:    183.22
+wrk6async     | Transfer/sec:     41.51KB
+wrk6async exited with code 0
+PS C:\Github\dotnetcore-api-template> docker-compose -f .\docker-compose-loadtests.yml up --build wrk12async            
+WARNING: Found orphan containers (wrk12, wrk6) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.
+Creating wrk12async ... done                                                                                            
+Attaching to wrk12async
+wrk12async    | Running 10s test @ http://api/friends
+wrk12async    |   12 threads and 50 connections
+wrk12async    |   Thread Stats   Avg      Stdev     Max   +/- Stdev
+wrk12async    |     Latency   182.79ms   35.00ms 336.47ms   71.05%
+wrk12async    |     Req/Sec    22.34      9.48    40.00     66.00%
+wrk12async    |   Latency Distribution
+wrk12async    |      50%  182.98ms
+wrk12async    |      75%  202.81ms
+wrk12async    |      90%  225.95ms
+wrk12async    |      99%  269.23ms
+wrk12async    |   2598 requests in 10.07s, 588.61KB read
+wrk12async    | Requests/sec:    258.09
+wrk12async    | Transfer/sec:     58.47KB
+wrk12async exited with code 0
+```
+
+
 
 ## Links
 
@@ -451,6 +654,7 @@ CMD /app/tools/reportgenerator -reports:/app/results/results*.xml -targetdir:/ap
  - [docker build - network](https://docs.docker.com/engine/reference/commandline/build/)
  path=%2Fdocker%2Fdocker-fbs-time-contacts-tests.Dockerfile)
  - [Dockerfile ENV](https://www.scottbrady91.com/Docker/ASPNET-Core-and-Docker-Environment-Variables)
+
 
 ## Issues
 

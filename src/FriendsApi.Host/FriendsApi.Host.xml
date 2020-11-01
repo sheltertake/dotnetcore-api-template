@@ -4,7 +4,7 @@
         <name>FriendsApi.Host</name>
     </assembly>
     <members>
-        <member name="M:FriendsApi.Host.Controllers.FriendsController.Get">
+        <member name="M:FriendsApi.Host.Controllers.FriendsController.GetAsync(System.Boolean)">
             <summary>
             Get Friends
             </summary>

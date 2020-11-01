@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace FootballContacts.Repositories
 {
@@ -12,6 +13,7 @@ namespace FootballContacts.Repositories
     public interface IFriendsRepository
 	{
 		Friend Get(int id);
+		Task<List<Friend>> ListAsync();
 		List<Friend> List();
 		Friend Create(Friend friend);
 		bool Update(Friend friend);
@@ -32,6 +34,10 @@ namespace FootballContacts.Repositories
 		public Friend Get(int id)
         {
 			return _dbContext.Friends.Where(x => x.Id == id).FirstOrDefault();
+		}
+		public async Task<List<Friend>> ListAsync()
+		{
+			return await _dbContext.Friends.ToListAsync();
 		}
 		public List<Friend> List()
 		{
