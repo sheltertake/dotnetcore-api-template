@@ -34,6 +34,7 @@ namespace FriendsApi.Host.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<Friend>>> GetAsync(bool sync)
         {
+            // only for demo purpose - remove sync parameter and _friendsRepository.List
             if (sync)
                 return Ok(_friendsRepository.List());
 

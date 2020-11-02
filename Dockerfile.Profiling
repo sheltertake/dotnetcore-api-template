@@ -33,17 +33,7 @@ VOLUME /snapshots
 
 COPY --from=build /app/src/FriendsApi.Host/out ./
 COPY ./entrypoint-profiling.sh ./
+COPY ./docs/post.lua /tmp
 
 CMD /app/entrypoint-profiling.sh
-
-# ENTRYPOINT ["dotnet", "FriendsApi.Host.dll"]
-# RUN dotnet /app/FriendsApi.Host.dll &
-
-#RUN sleep 10
-
-#CMD /tools/dotmemory/dotMemory.sh start-net-core /app/FriendsApi.Host.dll --save-to-dir=/snapshots --trigger-timer=30s
-# CMD /tools/dotmemory/dotMemory.sh start-net-core /app/FriendsApi.Host.dll --save-to-dir=/snapshots --trigger-timer=30s --trigger-max-snapshots=2
-#CMD /tools/dotmemory/dotMemory.sh get-snapshot 1 --save-to-dir=/snapshots
-# & sleep 60 ; kill $! && sleep 20
-
-# ENTRYPOINT [ "/bin/bash" ]
+# CMD /bin/bash

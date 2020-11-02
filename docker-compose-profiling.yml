@@ -10,7 +10,6 @@ services:
             - ./snapshots:/snapshots
         networks:
             - dbnet
-            - apinet
         depends_on:
             - db  
         environment:
@@ -27,20 +26,6 @@ services:
             - dbnet
         ports:
             - "1433:1433"      
-    wrk6async:
-        image: skandyla/wrk
-        container_name: wrk6async
-        networks:
-            - apinet
-        depends_on:
-            - api  
-        # entrypoint: sleep 30 && wrk
-        entrypoint: sh -c "sleep 10 && wrk -t3 -c5 -d10s --latency http://api/friends"
-        
-    
 networks:
     dbnet:
         name: dbnet
-    apinet:
-        name: apinet
-        
