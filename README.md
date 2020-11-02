@@ -1,9 +1,24 @@
-# Docker Compose - Test Dotnetcore REST Api
+# Description 
 
-## Initial requirement
+This repository at the moment is a poc. The name is misleading, I know. 
 
-docker-compose (or kind where applicable) to create local/extra environments to run a full app including the service-owned persistence.
-Service dependencies can be mocked with ad-hoc compose service or be delegated to other environment service if read-only. 
+It contains 
+ - a dotnetcore 3.1 api boilerplate.
+ - a unit test project
+ - an integration test project
+ - an e2e test project
+ - a template (backup) of sql server database
+ 
+It contains a series of docker-compose yaml to:
+ - local development  (docker-compose.yml)
+   - start up api + start up sql server with restored initial database
+ - build and test (docker-compose-testapi)
+   - unit tests + integration tests (+ sql server startup) + code coverage report
+   - e2e typed client code coverage report (start up api, db, run e2e tests)
+ - load tests (docker-compose-loadtests.yml)
+   - launch wrk against api+db in docker compose
+ - profile memory (docker-compose-profiling.yml)
+   - attach profiler to the api, wrk, save report 
 
 ## Tools used in this POC
 
@@ -60,10 +75,23 @@ Service dependencies can be mocked with ad-hoc compose service or be delegated t
 
 ### local api up/build/down (db+api)
 
+ - docker-compose build
  - docker-compose up
  - docker-compose down
- - docker-compose build
 
+### load tests 
+ 
+ - docker-compose build
+ - docker-compose up
+ - docker-compose -f .\docker-compose-loadtests.yml up --build wrk6sync 
+ - docker-compose -f .\docker-compose-loadtests.yml up --build wrk12sync 
+ - docker-compose -f .\docker-compose-loadtests.yml up --build wrk6async 
+ - docker-compose -f .\docker-compose-loadtests.yml up --build wrk12async 
+  
+### profiling 
+
+ - docker-compose -f ./docker-compose-profiling.yml build
+ - docker-compose -f ./docker-compose-profiling.yml up api
 
 ## Azure pipelines
 
@@ -626,36 +654,123 @@ wrk12async    | Transfer/sec:     58.47KB
 wrk12async exited with code 0
 ```
 
+## Profiling
+
+ -  docker-compose -f ./docker-compose-profiling.yml build
+ -  docker-compose -f ./docker-compose-profiling.yml up api
 
 
-## Links
+### Compose Yaml
 
- - [POC latest build](TODO)
- - [POC Final pipeline](TODO)
- 
- - [report generator](https://github.com/danielpalme/ReportGenerator)
- - [report generator integration](https://github.com/danielpalme/ReportGenerator/wiki/Integration#attention)
- - [coverlet issues](https://github.com/coverlet-coverage/coverlet/issues)
- - [coverlet](https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/MSBuildIntegration.md)
- - [Docker Compose Wait for Dependencies](https://www.datanovia.com/en/courses/docker-compose-wait-for-dependencies/)
- - [compose - wait for exit](https://github.com/docker/compose/issues/5007)
- - [compose - start up order](https://docs.docker.com/compose/startup-order/)
- - [compose file - volumes](https://docs.docker.com/compose/compose-file/#volumes)
- - [mount volume in compose](https://stackoverflow.com/questions/38228386/mount-a-volume-in-docker-compose-how-is-it-done)
- - [Understanding docker -v command](https://stackoverflow.com/questions/32269810/understanding-docker-v-command)
- - [volume example](https://docs.docker.com/engine/reference/builder/#volume)
- - [docker - volume cli](https://docs.docker.com/engine/reference/commandline/volume_create/)
- - [dockerfile - VOLUME](https://stackoverflow.com/questions/41935435/understanding-volume-instruction-in-dockerfile)
- - [compose - volumes](https://docs.docker.com/storage/volumes/)
- - [compose - dependant services](https://stackoverflow.com/questions/47615751/docker-compose-run-a-script-after-container-has-started)
- - [ASPNETCORE_ENVIRONMENT in test runner](https://github.com/microsoft/vstest/issues/669)
- - [environment variables in test runner](https://github.com/xunit/xunit/issues/857)
- - [docker build - environment variables](https://docs.docker.com/engine/reference/builder/)
- - [docker build - network](https://docs.docker.com/engine/reference/commandline/build/)
- path=%2Fdocker%2Fdocker-fbs-time-contacts-tests.Dockerfile)
- - [Dockerfile ENV](https://www.scottbrady91.com/Docker/ASPNET-Core-and-Docker-Environment-Variables)
+ - docker-compose-profiling.yml
 
 
-## Issues
+```yaml
+version: "3"
+services:
+    api:
+        image: friendapi-profiling
+        container_name: friendapi-profiling
+        build:
+            context: .
+            dockerfile: ./Dockerfile.Profiling
+        volumes:
+            - ./snapshots:/snapshots
+        networks:
+            - dbnet
+        depends_on:
+            - db  
+        environment:
+            - ASPNETCORE_ENVIRONMENT=compose
+        ports:    
+            - "5001:80"     
+    db:
+        image: custom-mssql
+        container_name: custom-mssql
+        build:
+            context: ./database
+            dockerfile: Dockerfile
+        networks:
+            - dbnet
+        ports:
+            - "1433:1433"      
+networks:
+    dbnet:
+        name: dbnet
 
- - compose up coverage -> I'd like to wait unit integration and e2e but depend wait only start not end
+```
+### Dockerfile - Api
+
+ - Dockerfile.Profiling
+   - download and compile wrk
+   - download and untar dottrace (TODO)
+   - download and untar dotmemory (TODO)
+   - build and publish api
+   - copy tools and entrypoint
+   - exec entrypoint
+
+```dockerfile
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+
+WORKDIR /tools/wrk
+
+RUN apt-get update && apt-get install build-essential libssl-dev git -y
+RUN git clone https://github.com/wg/wrk.git /tools/wrk
+RUN make
+
+WORKDIR /tools/dottrace
+
+RUN wget -qO- https://download.jetbrains.com/resharper/dotUltimate.2020.2.4/JetBrains.dotTrace.CommandLineTools.linux-x64.2020.2.4.tar.gz | tar xvz -C /tools/dottrace
+
+WORKDIR /tools/dotmemory
+
+RUN wget -qO- https://download.jetbrains.com/resharper/dotUltimate.2020.2.4/JetBrains.dotMemory.Console.linux-x64.2020.2.4.tar.gz | tar xvz -C /tools/dotmemory
+
+WORKDIR /app
+
+COPY ./src ./src
+
+WORKDIR /app/src/FriendsApi.Host
+RUN dotnet restore 
+RUN dotnet publish -c Release -o out
+
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-focal AS runtime
+
+WORKDIR /tools
+COPY --from=build /tools ./
+
+WORKDIR /app
+
+VOLUME /snapshots
+
+COPY --from=build /app/src/FriendsApi.Host/out ./
+COPY ./entrypoint-profiling.sh ./
+COPY ./docs/post.lua /tmp
+
+CMD /app/entrypoint-profiling.sh
+# CMD /bin/bash
+```
+
+### Docker Api - Entrypoint
+
+ - attach in background dotmemory profiler
+ - launch 30s of GET to /friends route
+ - launch 20s of POST (new friends) to /friends route
+ - launch 40s of GET to /friends route (1k records now not 3)
+ - save dump in /snapshots
+ - exit
+
+```bash
+/tools/dotmemory/dotMemory.sh start-net-core /app/FriendsApi.Host.dll --save-to-dir=/snapshots  --trigger-timer=30s --trigger-max-snapshots=5 &
+
+sleep 10
+
+/tools/wrk/wrk -t2 -c3 -d30s --latency http://127.0.0.1:80/friends  > /snapshots/wrk-results-1.txt
+/tools/wrk/wrk -t1 -c1 -d20s --latency -s /tmp/post.lua http://127.0.0.1:80/friends  > /snapshots/wrk-results-2.txt
+/tools/wrk/wrk -t2 -c3 -d40s --latency http://127.0.0.1:80/friends  > /snapshots/wrk-results-3.txt
+
+kill $(ps aux | grep 'dotnet /app/FriendsApi.Host.dll' | grep -v grep | awk '{print $2}')
+
+sleep 10
+```
+

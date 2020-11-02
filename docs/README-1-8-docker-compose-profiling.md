@@ -1,3 +1,28 @@
+ - https://www.jetbrains.com/help/dotmemory/Working_with_dotMemory_Command-Line_Profiler.html
+ - https://stackoverflow.com/questions/19073577/ps-aux-grep-returns-pid-for-itself-too
+ - https://docs.docker.com/storage/volumes/
+ - https://stackoverflow.com/questions/41935435/understanding-volume-instruction-in-dockerfile
+ - https://stackoverflow.com/questions/16678487/wget-command-to-download-a-file-and-save-as-a-different-filename
+ - https://blog.jetbrains.com/dotnet/2020/06/09/memory-profiling-linux-macos-dotmemory-2020-2/
+ - https://stackoverflow.com/questions/7383803/writing-to-stdin-and-reading-from-stdout-unix-linux-c-programming
+ - https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes#:~:text=Remove%20a%20container%20upon%20exit,docker%20run%20%2D%2Drm%20image_name
+ - https://docs.docker.com/engine/reference/commandline/run/
+ - https://www.docker.com/blog/docker-0-6-5-links-container-naming-advanced-port-redirects-host-integration/
+ - https://github.com/carlossg/docker-maven/issues/114
+ - https://stackoverflow.com/questions/43306332/stop-a-running-dotnet-core-website-running-on-kestrel
+ - 
+ - https://stackoverflow.com/questions/3510673/find-and-kill-a-process-in-one-line-using-bash-and-regex
+ - https://askubuntu.com/questions/180336/how-to-find-the-process-id-pid-of-a-running-terminal-program
+ - https://stackoverflow.com/questions/160924/how-can-i-kill-a-process-by-name-instead-of-pid
+ - https://askubuntu.com/questions/420981/how-do-i-save-terminal-output-to-a-file
+ - 
+ - 
+ - 
+ - 
+ - 
+ - 
+ - 
+ - 
  - https://www.jetbrains.com/profiler/download/#section=commandline
  - https://www.jetbrains.com/dotmemory/download/#section=commandline
  - https://stackoverflow.com/questions/26982274/ps-command-doesnt-work-in-docker-container
